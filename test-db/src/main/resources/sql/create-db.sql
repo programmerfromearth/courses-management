@@ -1,45 +1,57 @@
 -- -----------------------------------------------------
--- Table `course`.`teacher`
+-- Table teacher
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `course`.`teacher` (
-  `id_t` INT(11) NOT NULL AUTO_INCREMENT,
-  `name_t` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id_t`))
-ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS TEACHER (
+    ID_T   INT         NOT NULL AUTO_INCREMENT,
+    NAME_T VARCHAR(45) NOT NULL,
+    PRIMARY KEY (ID_T)
+);
 
 -- -----------------------------------------------------
--- Table `course`.`course`
+-- Table course
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `course`.`course` (
-  `id_c` INT(11) NOT NULL,
-  `name_c` VARCHAR(45) NOT NULL,
-  `description_c` VARCHAR(45) NOT NULL,
-  `id_t` INT(11) NOT NULL,
-  PRIMARY KEY (`id_c`),
-  INDEX `fk_course_teacher_idx` (`id_t` ASC),
-  CONSTRAINT `fk_course_teacher`
-    FOREIGN KEY (`id_t`)
-    REFERENCES `course`.`teacher` (`id_t`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS COURSE (
+    ID_C          INT         NOT NULL,
+    NAME_C        VARCHAR(45) NOT NULL,
+    DESCRIPTION_C VARCHAR(45) NOT NULL,
+    ID_T          INT         NOT NULL,
+    UNIQUE INDEX id_t_UNIQUE (id_t ASC),
+    PRIMARY KEY (ID_C),
+    CONSTRAINT fk_course_teacher
+        FOREIGN KEY (ID_T)
+            REFERENCES TEACHER (ID_T)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
+);
 
 -- -----------------------------------------------------
--- Table `course`.`student`
+-- Table student
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `course`.`student` (
-  `id_s` INT(11) NOT NULL,
-  `name_s` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id_s`))
-ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS STUDENT (
+    ID_S     INT         NOT NULL,
+    NUMBER_S VARCHAR(45) NOT NULL,
+    NAME_S   VARCHAR(45) NOT NULL,
+    PRIMARY KEY (ID_S),
+    UNIQUE INDEX number_s_UNIQUE (NUMBER_S ASC)
+);
 
 -- -----------------------------------------------------
--- Table `course`.`student_course`
+-- Table student_course
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `course`.`student_course` (
-  `id_s` INT(11) NOT NULL,
-  `id_c` INT(11) NOT NULL,
-  `comment_sc` VARCHAR(45) NOT NULL,
-  `value_sc` INT(11) NOT NULL,
-  PRIMARY KEY (`id_s`, `id_c`))
-ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS STUDENT_COURSE (
+    ID_C       INT         NOT NULL,
+    ID_S       INT         NOT NULL,
+    COMMENT_SC VARCHAR(45) NOT NULL,
+    VALUE_SC   INT         NOT NULL,
+    PRIMARY KEY (ID_C, ID_S),
+    CONSTRAINT fk_student_course_student
+        FOREIGN KEY (ID_S)
+            REFERENCES STUDENT (ID_S)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+    CONSTRAINT fk_student_course_course
+        FOREIGN KEY (ID_C)
+            REFERENCES COURSE (ID_C)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
+);
