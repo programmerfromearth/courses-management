@@ -20,9 +20,9 @@ public class StudentJdbcDaoImpl implements StudentDao {
     private String selectByIdSql =
             "SELECT S.ID_S, S.NUMBER_S, S.NAME_S FROM STUDENT S WHERE S.ID_S = :id;";
     private String addStudentSql =
-            "INSERT INTO STUDENT(NUMBER_S, NAME_S) VALUE(:number, :name);";
+            "INSERT INTO STUDENT(NUMBER_S, NAME_S) VALUES(:number, :name);";
     private String updateStudentSql =
-            "UPDATE STUDENT s SET NUMBER_S = :studentNumber, NAME_S = :name WHERE ID_S = :id;";
+            "UPDATE STUDENT s SET NUMBER_S = :number, NAME_S = :name WHERE ID_S = :id;";
     private String deleteStudentSql =
             "DELETE FROM STUDENT where ID_S = :id;";
 
@@ -59,6 +59,7 @@ public class StudentJdbcDaoImpl implements StudentDao {
     public void updateStudent(Student student) {
         Map<String, Object> params = new HashMap<>();
         params.put("id", student.getId());
+        params.put("number", student.getNumber());
         params.put("name", student.getName());
         template.update(updateStudentSql, new MapSqlParameterSource(params));
     }
@@ -73,9 +74,9 @@ public class StudentJdbcDaoImpl implements StudentDao {
         @Override
         public Student mapRow(ResultSet resultSet, int i) throws SQLException {
             Student student = new Student();
-            student.setId(resultSet.getInt("id"));
-            student.setName(resultSet.getString("number"));
-            student.setName(resultSet.getString("name"));
+            student.setId(resultSet.getInt("ID_S"));
+            student.setNumber(resultSet.getString("NUMBER_S"));
+            student.setName(resultSet.getString("NAME_S"));
             return student;
         }
     }

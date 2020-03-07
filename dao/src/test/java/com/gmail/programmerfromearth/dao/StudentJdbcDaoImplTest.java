@@ -57,9 +57,9 @@ public class StudentJdbcDaoImplTest {
 
         when(template.query(anyString(), any(RowMapper.class)))
                 .thenReturn(Collections.singletonList(student));
-        when(rs.getInt("id")).thenReturn(id);
-        when(rs.getString("number")).thenReturn(number);
-        when(rs.getString("name")).thenReturn(name);
+        when(rs.getInt("ID_S")).thenReturn(id);
+        when(rs.getString("NUMBER_S")).thenReturn(number);
+        when(rs.getString("NAME_S")).thenReturn(name);
 
         List<Student> students = studentDao.getStudents();
         assertNotNull(students);
@@ -88,9 +88,9 @@ public class StudentJdbcDaoImplTest {
 
         when(template.query(anyString(), any(MapSqlParameterSource.class), any(RowMapper.class)))
                 .thenReturn(Collections.singletonList(student));
-        when(rs.getInt("id")).thenReturn(id);
-        when(rs.getString("number")).thenReturn(number);
-        when(rs.getString("name")).thenReturn(name);
+        when(rs.getInt("ID_S")).thenReturn(id);
+        when(rs.getString("NUMBER_S")).thenReturn(number);
+        when(rs.getString("NAME_S")).thenReturn(name);
 
         Student returnStudent = studentDao.getStudentById(id);
         assertNotNull(returnStudent);
