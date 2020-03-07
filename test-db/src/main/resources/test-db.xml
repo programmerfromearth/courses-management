@@ -5,7 +5,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/jdbc
-        ttp://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+        http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="driverClassName" value="org.h2.Driver"/>
@@ -17,7 +17,8 @@
     </bean>
 
     <jdbc:initialize-database>
-        <jdbc:script location="sql/create-db.sql"/>
+        <jdbc:script location="classpath*:sql/create-db.sql"/>
+        <jdbc:script location="classpath*:sql/data-script.sql"/>
     </jdbc:initialize-database>
 
 </beans>

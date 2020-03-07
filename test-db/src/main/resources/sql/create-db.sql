@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS COURSE (
 -- Table student
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS STUDENT (
-    ID_S     INT         NOT NULL,
+    ID_S     INT         NOT NULL AUTO_INCREMENT,
     NUMBER_S VARCHAR(45) NOT NULL,
     NAME_S   VARCHAR(45) NOT NULL,
     PRIMARY KEY (ID_S),
