@@ -37,6 +37,19 @@ public class StudentController {
         return "redirect:/students";
     }
 
+    @GetMapping(value = "/student/{id}")
+    public String goToUpdateStudent(@PathVariable Integer id, Model model) {
+        model.addAttribute("isNew", false);
+        model.addAttribute("student", studentDao.getStudentById(id));
+        return "student";
+    }
+
+    @PostMapping(value = "/student/{id}")
+    public String updateStudent(Student student) {
+        studentDao.updateStudent(student);
+        return "redirect:/students";
+    }
+
     @GetMapping(value = "/students/{id}/delete")
     public String deleteStudents(@PathVariable Integer id, Model model) {
         studentDao.deleteStudent(id);

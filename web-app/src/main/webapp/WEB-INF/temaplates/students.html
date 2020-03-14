@@ -61,7 +61,8 @@
                         <td th:text="${student.name}">name</td>
                         <td class="text-right">
                             <button type="button"
-                                    class="btn btn-primary">Edit</button>
+                                    class="btn btn-primary"
+                                    th:onclick="'location.href = \'' + @{|/student/${student.id}|} + '\''">Edit</button>
                             <button type="button"
                                     class="btn btn-danger"
                                     data-toggle="modal"
