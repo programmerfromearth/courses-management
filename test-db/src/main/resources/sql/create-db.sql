@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS TEACHER (
 -- Table course
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS COURSE (
-    ID_C          INT         NOT NULL,
+    ID_C          INT         NOT NULL AUTO_INCREMENT,
     NAME_C        VARCHAR(45) NOT NULL,
     DESCRIPTION_C VARCHAR(45) NOT NULL,
     ID_T          INT         NOT NULL,
