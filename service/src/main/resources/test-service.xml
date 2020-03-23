@@ -18,7 +18,15 @@
         <constructor-arg ref="jdbcTemplate"/>
     </bean>
 
-    <bean id="serviceDao" class="com.gmail.programmerfromearth.service.StudentServiceImpl">
+    <bean id="studentService" class="com.gmail.programmerfromearth.service.StudentServiceImpl">
         <constructor-arg ref="studentDao"/>
+    </bean>
+
+    <bean id="courseDao" class="com.gmail.programmerfromearth.dao.CourseJdbcDaoImpl">
+        <constructor-arg ref="jdbcTemplate"/>
+    </bean>
+
+    <bean id="courseService" class="com.gmail.programmerfromearth.service.CourseServiceImpl">
+        <constructor-arg ref="courseDao"/>
     </bean>
 </beans>

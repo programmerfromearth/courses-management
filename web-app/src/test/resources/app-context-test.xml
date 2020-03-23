@@ -25,6 +25,14 @@
         <constructor-arg ref="studentDao"/>
     </bean>
 
+    <bean id="courseDao" class="com.gmail.programmerfromearth.dao.CourseJdbcDaoImpl">
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    </bean>
+
+    <bean id="courseService" class="com.gmail.programmerfromearth.service.CourseServiceImpl">
+        <constructor-arg ref="courseDao"/>
+    </bean>
+
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
