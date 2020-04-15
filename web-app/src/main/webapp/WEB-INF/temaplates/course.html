@@ -4,7 +4,7 @@
         <link rel="stylesheet"
               href="../../resources/static/css/bootstrap.min.css"
               th:href="@{/resources/static/css/bootstrap.min.css}">
-        <title>Student</title>
+        <title>Course</title>
     </head>
 
     <body>
@@ -32,13 +32,13 @@
 
                 <ul class="navbar-nav float-lg-left">
                     <li class="nav-item"
-                        title="Back to list"><a href="students.html"
-                                                th:href="@{/students}"
+                        title="Back to list"><a href="courses.html"
+                                                th:href="@{/courses}"
                                                 class="btn btn-light btn-block">
                     <i class="fa fa-arrow-left"></i></a></li>
                 </ul>
                 <span class="navbar-brand text-uppercase mr-auto"
-                      th:text="${isNew} ? 'New student' : 'Edit student'">Edit student</span>
+                      th:text="${isNew} ? 'New course' : 'Edit course'">Edit course</span>
             </nav>
         </header>
 
@@ -47,9 +47,9 @@
                 <div class="col">
                     <div class="card">
                         <div class="card-body">
-                            <form id="studentForm"
-                                  th:object="${student}"
-                                  action="students.html"
+                            <form id="courseForm"
+                                  th:object="${course}"
+                                  action="courses.html"
                                   th:action="@{${#httpServletRequest.servletPath}}"
                                   th:method="@{post}">
                                 <input id="field_departmentId"
@@ -57,33 +57,32 @@
                                        th:field="*{id}"/>
                                 <div class="form-group">
                                     <label class="form-control-label"
-                                           for="field_number">Number</label>
-                                    <input th:class="${#fields.hasErrors('number')} ? 'form-control is-invalid' : 'form-control'"
+                                           for="field_number">Name</label>
+                                    <input class="form-control "
                                            id="field_number"
-                                           type="text"
-                                           th:field="*{number}"/>
-                                    <div th:if="${#fields.hasErrors('number')}"
-                                         class="invalid-feedback"
-                                         th:errors="*{number}">[errors]</div>
+                                           th:field="*{name}"/>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-control-label"
-                                           for="field_name">Name</label>
-                                    <input th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'form-control'"
-                                           id="field_name"
-                                           type="text"
-                                           th:field="*{name}"/>
-                                    <div th:if="${#fields.hasErrors('name')}"
-                                         class="invalid-feedback"
-                                         th:errors="*{name}">[errors]</div>
+                                           for="field_description">Description</label>
+                                    <input class="form-control "
+                                           id="field_description"
+                                           th:field="*{description}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label"
+                                           for="field_teacherId">Teacher's id</label>
+                                    <input class="form-control "
+                                           id="field_teacherId"
+                                           th:field="*{teacherId}"/>
                                 </div>
                                 <div class="d-flex justify-content-end">
-                                    <a href="students.html"
-                                       th:href="@{/students}"
+                                    <a href="courses.html"
+                                       th:href="@{/courses}"
                                        class="btn btn-light mr-1">Cancel</a>
-                                    <a href="students.html"
-                                       th:href="@{/students}"
-                                       th:onclick="@{document.forms['studentForm'].submit(); return false;}"
+                                    <a href="courses.html"
+                                       th:href="@{/courses}"
+                                       th:onclick="@{document.forms['courseForm'].submit(); return false;}"
                                        class="btn btn-primary">Save</a>
                                 </div>
                             </form>
