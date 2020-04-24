@@ -21,8 +21,16 @@
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 
+    <bean id="courseDao" class="com.gmail.programmerfromearth.dao.CourseJdbcDaoImpl">
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    </bean>
+
     <bean id="studentService" class="com.gmail.programmerfromearth.service.StudentServiceImpl">
         <constructor-arg ref="studentDao"/>
+    </bean>
+
+    <bean id="courseService" class="com.gmail.programmerfromearth.service.CourseServiceImpl">
+        <constructor-arg ref="courseDao"/>
     </bean>
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -32,6 +40,8 @@
     <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
         <constructor-arg name="dataSource" ref="dataSource"/>
     </bean>
+
+    <bean id="studentValidator" class="com.gmail.programmerfromearth.controller.validators.StudentValidator"/>
 
     <bean id="templateResolver"
           class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
@@ -48,6 +58,11 @@
     <bean id="viewResolver" class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
         <property name="templateEngine" ref="templateEngine"/>
         <property name="characterEncoding" value="UTF-8"/>
+    </bean>
+
+    <bean id="messageSource"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="/WEB-INF/messages"/>
     </bean>
 
 </beans>
