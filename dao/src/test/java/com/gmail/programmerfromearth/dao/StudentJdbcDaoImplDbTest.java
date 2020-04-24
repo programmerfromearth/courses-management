@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:test-dao.xml"})
+@ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:test-dao.xml", "classpath*:dao.xml"})
 public class StudentJdbcDaoImplDbTest {
 
     @Autowired
@@ -57,6 +57,15 @@ public class StudentJdbcDaoImplDbTest {
         assertEquals("TT-1_updated", updatedStudent.getNumber());
         assertEquals("Bob_updated", updatedStudent.getName());
 
+    }
+
+    @Test
+    public void getStudentByIdOfCourse() {
+        int idC = 1; //id of the course
+
+        List<Student> students = studentJdbcDao.getStudentByIdOfCourse(idC);
+
+        assertTrue(students.size() > 0);
     }
 
     @Test
