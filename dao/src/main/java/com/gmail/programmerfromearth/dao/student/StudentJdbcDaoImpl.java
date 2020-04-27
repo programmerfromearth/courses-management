@@ -93,12 +93,6 @@ public class StudentJdbcDaoImpl implements StudentDao {
         template.update(delete, params);
     }
 
-    @Override
-    public List<Student> getStudentByIdOfCourse(Integer courseId) {
-        MapSqlParameterSource params = new MapSqlParameterSource(StudentCourseFeedbackColumn.ID_C, courseId);
-        return template.query(selectByIdCourse, params, new StudentRowMapper());
-    }
-
     private static class StudentRowMapper implements RowMapper<Student> {
         @Override
         public Student mapRow(ResultSet resultSet, int i) throws SQLException {

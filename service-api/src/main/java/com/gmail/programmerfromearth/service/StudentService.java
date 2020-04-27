@@ -64,12 +64,4 @@ public interface StudentService {
      * @param studentId a student id of the deleted student
      */
     void deleteStudent(Integer studentId);
-
-    /**
-     * get all the students belong to the current course
-     *
-     * @param courseId a course id
-     * @return {@link List} of students belong to the current course
-     */
-    List<Student> getStudentByIdOfCourse(Integer courseId);
 }

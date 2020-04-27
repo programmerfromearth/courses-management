@@ -1,7 +1,5 @@
 package com.gmail.programmerfromearth.dao;
 
-import java.util.List;
-
 /**
  *  Generic CRUD repository
  *

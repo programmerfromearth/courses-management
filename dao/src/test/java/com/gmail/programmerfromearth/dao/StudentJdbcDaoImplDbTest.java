@@ -60,15 +60,6 @@ public class StudentJdbcDaoImplDbTest {
     }
 
     @Test
-    public void getStudentByIdOfCourse() {
-        int idC = 1; //id of the course
-
-        List<Student> students = studentDao.getStudentByIdOfCourse(idC);
-
-        assertTrue(students.size() > 0);
-    }
-
-    @Test
     public void deleteStudent() {
         studentDao.deleteStudent(3);
         List<Student> students = studentDao.getStudents();

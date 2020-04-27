@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Objects;
+
 @Controller
 public class StudentCourseController {
     private final StudentService studentService;
@@ -34,8 +36,10 @@ public class StudentCourseController {
     @PostMapping("/course/{id}/students/add_to_course")
     public String addStudentToCourse(@PathVariable Integer id,
                                      @ModelAttribute(value = "checkbox") Checkbox checkbox) {
-        for (Integer item : checkbox.getCheckedItem()) {
-            studentCourseFeedbackService.addCourseStudent(id, item);
+        if (Objects.nonNull(checkbox.getCheckedItem())) {
+            for (Integer item : checkbox.getCheckedItem()) {
+                studentCourseFeedbackService.addCourseStudent(id, item);
+            }
         }
         return String.format("redirect:/course/%s/students", id);
     }
@@ -51,8 +55,10 @@ public class StudentCourseController {
     @PostMapping("/course/{id}/students/delete_from_course")
     public String deleteStudentToCourse(@PathVariable Integer id,
                                         @ModelAttribute(value = "checkbox") Checkbox checkbox) {
-        for (Integer item : checkbox.getCheckedItem()) {
-            studentCourseFeedbackService.deleteCourseStudent(id, item);
+        if (Objects.nonNull(checkbox.getCheckedItem())) {
+            for (Integer item : checkbox.getCheckedItem()) {
+                studentCourseFeedbackService.deleteCourseStudent(id, item);
+            }
         }
         return String.format("redirect:/course/%s/students", id);
     }

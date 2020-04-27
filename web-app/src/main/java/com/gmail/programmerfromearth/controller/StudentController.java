@@ -82,7 +82,7 @@ public class StudentController {
 
     @GetMapping(value = "/course/{id}/students")
     public String showStudentsOfCourse(@PathVariable Integer id, Model model) {
-        model.addAttribute("students", studentService.getStudentByIdOfCourse(id));
+        model.addAttribute("students", studentService.getStudentsFormCourse(id));
         model.addAttribute("id", id);
         return "course_student";
     }
