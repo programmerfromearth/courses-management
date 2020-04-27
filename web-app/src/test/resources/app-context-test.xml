@@ -17,7 +17,7 @@
 
     <import resource="classpath*:test-db.xml"/>
 
-    <bean id="studentDao" class="com.gmail.programmerfromearth.dao.StudentJdbcDaoImpl">
+    <bean id="studentDao" class="com.gmail.programmerfromearth.dao.student.StudentJdbcDaoImpl">
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 
@@ -25,7 +25,7 @@
         <constructor-arg ref="studentDao"/>
     </bean>
 
-    <bean id="courseDao" class="com.gmail.programmerfromearth.dao.CourseJdbcDaoImpl">
+    <bean id="courseDao" class="com.gmail.programmerfromearth.dao.course.CourseJdbcDaoImpl">
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 

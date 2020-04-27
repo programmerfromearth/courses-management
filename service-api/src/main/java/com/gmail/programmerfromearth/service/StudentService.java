@@ -28,6 +28,22 @@ public interface StudentService {
     Student getStudentById(Integer studentId);
 
     /**
+     * Get all the students from the current course
+     *
+     * @param courseId course id
+     * @return {@link List} of students from the current course
+     */
+    List<Student> getStudentsFormCourse(Integer courseId);
+
+    /**
+     * Get all the students who are not from the current course
+     *
+     * @param courseId course id
+     * @return {@link List} of students who are not from the current course
+     */
+    List<Student> getStudentsNotFormCourse(Integer courseId);
+
+    /**
      * Add a current student to the store
      *
      * @param student the added student

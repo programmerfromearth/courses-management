@@ -1,5 +1,6 @@
-package com.gmail.programmerfromearth.dao;
+package com.gmail.programmerfromearth.dao.student;
 
+import com.gmail.programmerfromearth.dao.studentCourseFeedback.StudentCourseFeedbackColumn;
 import com.gmail.programmerfromearth.model.Student;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.support.DataAccessUtils;
@@ -11,29 +12,33 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class StudentJdbcDaoImpl implements StudentDao {
 
-    @Value("${dao.student.selectAllStudents}")
-    private String selectAllStudents;
+    @Value("${dao.student.selectAll}")
+    private String selectAll;
 
-    @Value("${dao.student.selectStudentById}")
+    @Value("${dao.student.selectById}")
     private String selectById;
 
-    @Value("${dao.student.addStudent}")
-    private String addStudent;
+    @Value("${dao.student.selectAllByCourseId}")
+    private String selectAllByCourseId;
 
-    @Value("${dao.student.updateStudent}")
-    private String updateStudent;
+    @Value("${dao.student.selectAllNotFromCourseByCourseId}")
+    private String selectAllNotFromCourseByCourseId;
 
-    @Value("${dao.student.deleteStudent}")
-    private String deleteStudent;
+    @Value("${dao.student.add}")
+    private String add;
 
-    @Value("${dao.student.selectStudentByIdCourse}")
-    private String selectStudentByIdCourse;
+    @Value("${dao.student.update}")
+    private String update;
+
+    @Value("${dao.student.delete}")
+    private String delete;
+
+    @Value("${dao.student.selectByIdCourse}")
+    private String selectByIdCourse;
 
     private final NamedParameterJdbcTemplate template;
 
@@ -43,7 +48,7 @@ public class StudentJdbcDaoImpl implements StudentDao {
 
     @Override
     public List<Student> getStudents() {
-        return template.query(selectAllStudents, new StudentRowMapper());
+        return template.query(selectAll, new StudentRowMapper());
     }
 
     @Override
@@ -54,34 +59,44 @@ public class StudentJdbcDaoImpl implements StudentDao {
     }
 
     @Override
+    public List<Student> getStudentsFormCourse(Integer courseId) {
+        MapSqlParameterSource params = new MapSqlParameterSource(StudentCourseFeedbackColumn.ID_C, courseId);
+        return template.query(selectAllByCourseId, params, new StudentRowMapper());
+    }
+
+    @Override
+    public List<Student> getStudentsNotFormCourse(Integer courseId) {
+        MapSqlParameterSource params = new MapSqlParameterSource(StudentCourseFeedbackColumn.ID_C, courseId);
+        return template.query(selectAllNotFromCourseByCourseId, params, new StudentRowMapper());
+    }
+
+    @Override
     public Integer addStudent(Student student) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        Map<String, Object> params = new HashMap<>();
-        params.put(NUMBER_S, student.getNumber());
-        params.put(NAME_S, student.getName());
-        template.update(addStudent, new MapSqlParameterSource(params), keyHolder);
+        MapSqlParameterSource params = new MapSqlParameterSource(NUMBER_S, student.getNumber())
+                .addValue(NAME_S, student.getName());
+        template.update(add, params, keyHolder);
         return (Integer) keyHolder.getKey();
     }
 
     @Override
     public void updateStudent(Student student) {
-        Map<String, Object> params = new HashMap<>();
-        params.put(ID_S, student.getId());
-        params.put(NUMBER_S, student.getNumber());
-        params.put(NAME_S, student.getName());
-        template.update(updateStudent, new MapSqlParameterSource(params));
+        MapSqlParameterSource params = new MapSqlParameterSource(ID_S, student.getId())
+                .addValue(NUMBER_S, student.getNumber())
+                .addValue(NAME_S, student.getName());
+        template.update(update, params);
     }
 
     @Override
     public void deleteStudent(Integer id) {
         MapSqlParameterSource params = new MapSqlParameterSource(ID_S, id);
-        template.update(deleteStudent, params);
+        template.update(delete, params);
     }
 
     @Override
     public List<Student> getStudentByIdOfCourse(Integer courseId) {
-        MapSqlParameterSource params = new MapSqlParameterSource(ID_S, courseId);
-        return template.query(selectStudentByIdCourse, params, new StudentRowMapper());
+        MapSqlParameterSource params = new MapSqlParameterSource(StudentCourseFeedbackColumn.ID_C, courseId);
+        return template.query(selectByIdCourse, params, new StudentRowMapper());
     }
 
     private static class StudentRowMapper implements RowMapper<Student> {

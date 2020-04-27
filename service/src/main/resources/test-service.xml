@@ -14,7 +14,7 @@
         <constructor-arg ref="dataSource"/>
     </bean>
 
-    <bean id="studentDao" class="com.gmail.programmerfromearth.dao.StudentJdbcDaoImpl">
+    <bean id="studentDao" class="com.gmail.programmerfromearth.dao.student.StudentJdbcDaoImpl">
         <constructor-arg ref="jdbcTemplate"/>
     </bean>
 
@@ -22,11 +22,24 @@
         <constructor-arg ref="studentDao"/>
     </bean>
 
-    <bean id="courseDao" class="com.gmail.programmerfromearth.dao.CourseJdbcDaoImpl">
+    <bean id="courseDao" class="com.gmail.programmerfromearth.dao.course.CourseJdbcDaoImpl">
         <constructor-arg ref="jdbcTemplate"/>
     </bean>
 
     <bean id="courseService" class="com.gmail.programmerfromearth.service.CourseServiceImpl">
         <constructor-arg ref="courseDao"/>
+    </bean>
+
+    <bean id="feedbackDao" class="com.gmail.programmerfromearth.dao.feedback.FeedbackJdbcDaoImpl">
+        <constructor-arg ref="jdbcTemplate"/>
+    </bean>
+
+    <bean id="studentCourseFeedbackJdbcDao" class="com.gmail.programmerfromearth.dao.studentCourseFeedback.StudentCourseFeedbackJdbcDaoImpl">
+        <constructor-arg ref="jdbcTemplate"/>
+    </bean>
+
+    <bean id="feedbackService" class="com.gmail.programmerfromearth.service.FeedbackServiceImpl">
+        <constructor-arg index="0" ref="feedbackDao"/>
+        <constructor-arg index="1" ref="studentCourseFeedbackJdbcDao"/>
     </bean>
 </beans>

@@ -36,22 +36,37 @@ CREATE TABLE IF NOT EXISTS STUDENT (
 );
 
 -- -----------------------------------------------------
+-- Table feedback
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS FEEDBACK (
+   ID_F      INT         NOT NULL AUTO_INCREMENT,
+   COMMENT_F LONGTEXT    NOT NULL,
+   VALUE_F   INT         NOT NULL,
+   PRIMARY KEY (ID_F)
+);
+
+-- -----------------------------------------------------
 -- Table student_course
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS STUDENT_COURSE (
+CREATE TABLE IF NOT EXISTS STUDENT_COURSE_FEEDBACK (
     ID_C       INT         NOT NULL,
     ID_S       INT         NOT NULL,
-    COMMENT_SC VARCHAR(45) NOT NULL,
-    VALUE_SC   INT         NOT NULL,
+    ID_F       INT,
     PRIMARY KEY (ID_C, ID_S),
-    CONSTRAINT fk_student_course_student
+    CONSTRAINT fk_student_course_feedback_student
         FOREIGN KEY (ID_S)
             REFERENCES STUDENT (ID_S)
             ON DELETE CASCADE
             ON UPDATE CASCADE,
-    CONSTRAINT fk_student_course_course
+    CONSTRAINT fk_student_course_feedback_course
         FOREIGN KEY (ID_C)
             REFERENCES COURSE (ID_C)
             ON DELETE CASCADE
-            ON UPDATE CASCADE
+            ON UPDATE CASCADE,
+    CONSTRAINT fk_student_course_feedback_feedback
+            FOREIGN KEY (ID_F)
+            REFERENCES FEEDBACK (ID_F)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+    UNIQUE INDEX id_f_UNIQUE (ID_F ASC)
 );

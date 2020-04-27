@@ -1,4 +1,4 @@
-package com.gmail.programmerfromearth.dao;
+package com.gmail.programmerfromearth.dao.student;
 
 public interface StudentColumn {
     String ID_S = "ID_S";

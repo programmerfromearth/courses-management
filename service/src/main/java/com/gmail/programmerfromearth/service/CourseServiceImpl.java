@@ -1,6 +1,6 @@
 package com.gmail.programmerfromearth.service;
 
-import com.gmail.programmerfromearth.dao.CourseDao;
+import com.gmail.programmerfromearth.dao.course.CourseDao;
 import com.gmail.programmerfromearth.model.Course;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,4 +1,4 @@
-package com.gmail.programmerfromearth.dao;
+package com.gmail.programmerfromearth.dao.student;
 
 import com.gmail.programmerfromearth.model.Course;
 import com.gmail.programmerfromearth.model.Student;
@@ -24,6 +24,22 @@ public interface StudentDao extends StudentColumn {
      * @return {@link Course} corresponding to the current student id
      */
     Student getStudentById(Integer studentId);
+
+    /**
+     * Get all the students from the current course
+     *
+     * @param courseId course id
+     * @return {@link List} of students from the current course
+     */
+    List<Student> getStudentsFormCourse(Integer courseId);
+
+    /**
+     * Get all the students who are not from the current course
+     *
+     * @param courseId course id
+     * @return {@link List} of students who are not from the current course
+     */
+    List<Student> getStudentsNotFormCourse(Integer courseId);
 
     /**
      * Add a current student to the store

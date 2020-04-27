@@ -1,4 +1,4 @@
-package com.gmail.programmerfromearth.dao;
+package com.gmail.programmerfromearth.dao.course;
 
 import com.gmail.programmerfromearth.model.Course;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,9 +11,7 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class CourseJdbcDaoImpl implements CourseDao {
 
@@ -45,7 +43,7 @@ public class CourseJdbcDaoImpl implements CourseDao {
 
     @Override
     public Course getCourseById(Integer courseId) {
-        MapSqlParameterSource params = new MapSqlParameterSource("id", courseId);
+        MapSqlParameterSource params = new MapSqlParameterSource(ID_C, courseId);
         List<Course> result =  template.query(selectById, params, new CourseJdbcDaoImpl.CourseRowMapper());
         return DataAccessUtils.uniqueResult(result);
     }
@@ -53,27 +51,25 @@ public class CourseJdbcDaoImpl implements CourseDao {
     @Override
     public Integer addCourse(Course course) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        Map<String, Object> params = new HashMap<>();
-        params.put("name", course.getName());
-        params.put("description", course.getDescription());
-        params.put("teacherId", course.getTeacherId());
-        template.update(add, new MapSqlParameterSource(params), keyHolder);
+        MapSqlParameterSource params = new MapSqlParameterSource(NAME_C, course.getName())
+                .addValue(DESCRIPTION_C, course.getDescription())
+                .addValue(ID_T, course.getTeacherId());
+        template.update(add, params, keyHolder);
         return (Integer) keyHolder.getKey();
     }
 
     @Override
     public void updateCourse(Course course) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("id", course.getId());
-        params.put("name", course.getName());
-        params.put("description", course.getDescription());
-        params.put("teacherId", course.getTeacherId());
-        template.update(update, new MapSqlParameterSource(params));
+        MapSqlParameterSource params = new MapSqlParameterSource(ID_C, course.getId())
+                .addValue(NAME_C, course.getName())
+                .addValue(DESCRIPTION_C, course.getDescription())
+                .addValue(ID_T, course.getTeacherId());
+        template.update(update, params);
     }
 
     @Override
     public void deleteCourse(Integer courseId) {
-        MapSqlParameterSource params = new MapSqlParameterSource("id", courseId);
+        MapSqlParameterSource params = new MapSqlParameterSource(ID_C, courseId);
         template.update(delete, params);
     }
 

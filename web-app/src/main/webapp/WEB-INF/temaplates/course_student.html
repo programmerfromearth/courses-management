@@ -49,7 +49,7 @@
                         <td th:text="${student.name}">student's name</td>
                         <td class="text-right">
                             <a href="feedback.html"
-                               th:href="@{|/course/${course.id}/students|}"
+                               th:href="@{|/course/${id}/students/${student.id}/feedback|}"
                                class="btn btn-primary btn-sm">Add feedback</a>
                         </td>
                     </tr>
@@ -59,13 +59,13 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <a href="add_to_course.html"
-                       th:href="@{|/course/${course.id}/students|}"
+                    <a href="add_delete_student_to_course.html"
+                       th:href="@{|/course/${id}/students/add_to_course|}"
                        class="btn btn-success btn-block">Add student to course</a>
                 </div>
                 <div class="col">
                     <a href="delete_from_course.html"
-                       th:href="@{|/course/${course.id}/students|}"
+                       th:href="@{|/course/${id}/students/delete_from_course|}"
                        class="btn btn-danger btn-block">Delete student from curse</a>
                 </div>
             </div>

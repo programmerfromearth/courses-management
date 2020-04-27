@@ -36,42 +36,49 @@
                                                 class="btn btn-light btn-block">
                         <i class="fa fa-arrow-left"></i></a></li>
                 </ul>
-                <span class="navbar-brand text-uppercase mr-auto">Add student to course</span>
+                <span class="navbar-brand text-uppercase mr-auto"
+                      th:text="${modeFlag} ? 'Add student to course' : 'Delete student from course'">Add student to course</span>
             </nav>
         </header>
 
-        <div class="container-fluid">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Number</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Checked</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="student : ${students}">
-                    <td th:text="${student.id}">id</td>
-                    <td th:text="${student.number}">number</td>
-                    <td th:text="${student.name}">name</td>
-                    <td>
-                        <form id="deleteFromCourseForm">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customControlInline">
-                                <label class="custom-control-label" for="customControlInline"></label>
-                            </div>
-                        </form>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
-            <a href="course_student.html"
-               th:href="@{|/course/${course.id}/students|}"
-               th:onclick="@{document.forms['deleteFromCourseForm'].submit(); return false;}"
-               class="btn btn-danger">Delete student from curse</a>
-        </div>
+        <form id="addToCourseForm"
+              th:object="${checkbox}"
+              th:action="@{${#httpServletRequest.servletPath}}"
+              th:method="@{post}">
+            <div class="container-fluid">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Number</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Checked</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="student : ${students}">
+                            <td th:text="${student.id}">id</td>
+                            <td th:text="${student.number}">number</td>
+                            <td th:text="${student.name}">name</td>
+                            <td>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox"
+                                           class="custom-control-input"
+                                           th:id="|customControlInline_${student.id}|"
+                                           th:field="*{checkedItem}"
+                                           th:value="${student.id}">
+                                    <label class="custom-control-label" th:for="|customControlInline_${student.id}|"></label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a href="course_student.html"
+                   th:onclick="@{document.forms['addToCourseForm'].submit(); return false;}"
+                   class="btn btn-success"
+                   th:text="${modeFlag} ? 'Add student to course' : 'Delete student from course'">Add student to course</a>
+            </div>
+        </form>
 
         <script src="../../resources/static/js/jquery-3.4.1.slim.min.js"
                 th:src="@{/resources/static/js/jquery-3.4.1.slim.min.js}"></script>

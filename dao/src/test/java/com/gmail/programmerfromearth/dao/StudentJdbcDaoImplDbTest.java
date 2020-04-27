@@ -1,5 +1,6 @@
 package com.gmail.programmerfromearth.dao;
 
+import com.gmail.programmerfromearth.dao.student.StudentDao;
 import com.gmail.programmerfromearth.model.Student;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,17 +18,17 @@ import static org.junit.jupiter.api.Assertions.*;
 public class StudentJdbcDaoImplDbTest {
 
     @Autowired
-    private StudentJdbcDaoImpl studentJdbcDao;
+    private StudentDao studentDao;
 
     @Test
     public void getStudents() throws SQLException {
-        List<Student> students = studentJdbcDao. getStudents();
+        List<Student> students = studentDao. getStudents();
         assertTrue(students.size() > 0);
     }
 
     @Test
     public void getStudentById() throws SQLException {
-        Student student = studentJdbcDao.getStudentById(2);
+        Student student = studentDao.getStudentById(2);
         assertNotNull(student);
         assertEquals("TT-2", student.getNumber());
         assertEquals("Bob", student.getName());
@@ -40,7 +41,7 @@ public class StudentJdbcDaoImplDbTest {
         student.setNumber("TT-4");
         student.setName("Till");
 
-        Integer id = studentJdbcDao.addStudent(student);
+        Integer id = studentDao.addStudent(student);
         assertEquals(4, id);
     }
 
@@ -51,27 +52,26 @@ public class StudentJdbcDaoImplDbTest {
         student.setNumber("TT-1_updated");
         student.setName("Bob_updated");
 
-        studentJdbcDao.updateStudent(student);
+        studentDao.updateStudent(student);
 
-        Student updatedStudent = studentJdbcDao.getStudentById(1);
+        Student updatedStudent = studentDao.getStudentById(1);
         assertEquals("TT-1_updated", updatedStudent.getNumber());
         assertEquals("Bob_updated", updatedStudent.getName());
-
     }
 
     @Test
     public void getStudentByIdOfCourse() {
         int idC = 1; //id of the course
 
-        List<Student> students = studentJdbcDao.getStudentByIdOfCourse(idC);
+        List<Student> students = studentDao.getStudentByIdOfCourse(idC);
 
         assertTrue(students.size() > 0);
     }
 
     @Test
     public void deleteStudent() {
-        studentJdbcDao.deleteStudent(3);
-        List<Student> students = studentJdbcDao.getStudents();
+        studentDao.deleteStudent(3);
+        List<Student> students = studentDao.getStudents();
         assertEquals(2, students.size());
     }
 }

@@ -1,4 +1,4 @@
-package com.gmail.programmerfromearth.dao;
+package com.gmail.programmerfromearth.dao.course;
 
 import com.gmail.programmerfromearth.model.Course;
 

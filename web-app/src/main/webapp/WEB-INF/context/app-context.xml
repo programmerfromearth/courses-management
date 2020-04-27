@@ -19,11 +19,19 @@
     <import resource="classpath*:test-db.xml"/>
     <import resource="classpath*:dao.xml"/>
 
-    <bean id="studentDao" class="com.gmail.programmerfromearth.dao.StudentJdbcDaoImpl">
+    <bean id="studentDao" class="com.gmail.programmerfromearth.dao.student.StudentJdbcDaoImpl">
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 
-    <bean id="courseDao" class="com.gmail.programmerfromearth.dao.CourseJdbcDaoImpl">
+    <bean id="courseDao" class="com.gmail.programmerfromearth.dao.course.CourseJdbcDaoImpl">
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    </bean>
+
+    <bean id="studentCourseFeedbackJdbcDao" class="com.gmail.programmerfromearth.dao.studentCourseFeedback.StudentCourseFeedbackJdbcDaoImpl">
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    </bean>
+
+    <bean id="feedbackJdbcDao" class="com.gmail.programmerfromearth.dao.feedback.FeedbackJdbcDaoImpl">
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 
@@ -33,6 +41,14 @@
 
     <bean id="courseService" class="com.gmail.programmerfromearth.service.CourseServiceImpl">
         <constructor-arg ref="courseDao"/>
+    </bean>
+
+    <bean id="studentCourseFeedbackService" class="com.gmail.programmerfromearth.service.StudentCourseFeedbackServiceImpl">
+        <constructor-arg ref="studentCourseFeedbackJdbcDao"/>
+    </bean>
+
+    <bean id="feedbackService" class="com.gmail.programmerfromearth.service.FeedbackServiceImpl">
+        <constructor-arg ref="feedbackJdbcDao"/>
     </bean>
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

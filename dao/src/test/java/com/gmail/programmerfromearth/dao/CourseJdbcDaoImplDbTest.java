@@ -1,7 +1,7 @@
 package com.gmail.programmerfromearth.dao;
 
+import com.gmail.programmerfromearth.dao.course.CourseDao;
 import com.gmail.programmerfromearth.model.Course;
-import com.gmail.programmerfromearth.model.Student;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +17,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class CourseJdbcDaoImplDbTest {
 
     @Autowired
-    private CourseJdbcDaoImpl courseJdbcDao;
+    private CourseDao courseDao;
 
     @Test
     void getCourses() {
-        List<Course> courses = courseJdbcDao.getCourses();
+        List<Course> courses = courseDao.getCourses();
 
         assertTrue(courses.size() > 0);
     }
 
     @Test
     void getCourseById() {
-        Course course = courseJdbcDao.getCourseById(1);
+        Course course = courseDao.getCourseById(1);
 
         assertNotNull(course);
         assertEquals(1, course.getId());
@@ -45,7 +45,7 @@ class CourseJdbcDaoImplDbTest {
         course.setDescription("Geography-description");
         course.setTeacherId(4);
 
-        Integer id = courseJdbcDao.addCourse(course);
+        Integer id = courseDao.addCourse(course);
 
         assertEquals(4, id);
     }
@@ -58,8 +58,8 @@ class CourseJdbcDaoImplDbTest {
         course.setDescription("Math-description_updated");
         course.setTeacherId(5);
 
-        courseJdbcDao.updateCourse(course);
-        Course updatedCourse = courseJdbcDao.getCourseById(1);
+        courseDao.updateCourse(course);
+        Course updatedCourse = courseDao.getCourseById(1);
 
         assertEquals("Math_updated", updatedCourse.getName());
         assertEquals("Math-description_updated", updatedCourse.getDescription());
@@ -68,8 +68,8 @@ class CourseJdbcDaoImplDbTest {
 
     @Test
     void deleteCourse() {
-        courseJdbcDao.deleteCourse(3);
-        List<Course> courses = courseJdbcDao.getCourses();
+        courseDao.deleteCourse(3);
+        List<Course> courses = courseDao.getCourses();
 
         assertEquals(2, courses.size());
     }

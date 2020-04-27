@@ -1,6 +1,7 @@
 package com.gmail.programmerfromearth.service;
 
-import com.gmail.programmerfromearth.dao.StudentDao;
+import com.gmail.programmerfromearth.dao.studentCourseFeedback.StudentCourseFeedbackDao;
+import com.gmail.programmerfromearth.dao.student.StudentDao;
 import com.gmail.programmerfromearth.model.Student;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,9 +13,11 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
 
     private StudentDao studentDao;
+    private StudentCourseFeedbackDao studentCourseFeedbackDao;
 
-    public StudentServiceImpl(StudentDao studentDao) {
+    public StudentServiceImpl(StudentDao studentDao, StudentCourseFeedbackDao studentCourseFeedbackDao) {
         this.studentDao = studentDao;
+        this.studentCourseFeedbackDao = studentCourseFeedbackDao;
     }
 
     @Override
@@ -26,6 +29,16 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student getStudentById(Integer studentId) {
         return studentDao.getStudentById(studentId);
+    }
+
+    @Override
+    public List<Student> getStudentsFormCourse(Integer courseId) {
+        return studentDao.getStudentsFormCourse(courseId);
+    }
+
+    @Override
+    public List<Student> getStudentsNotFormCourse(Integer courseId) {
+        return studentDao.getStudentsNotFormCourse(courseId);
     }
 
     @Override

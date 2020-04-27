@@ -41,11 +41,49 @@
         </header>
 
         <div class="container-fluid">
-<!--            <div class="container-fluid">-->
-                <a href="course_student.html"
-                   th:href="@{|/course/${course.id}/students|}"
-                   class="btn btn-success">Add feedback</a>
-<!--            </div>-->
+            <form id="courseForm"
+                  th:object="${feedback}"
+                  action="courses.html"
+                  th:action="@{${#httpServletRequest.servletPath}}"
+                  th:method="@{post}">
+                <input id="field_feedbackId"
+                       type="hidden"
+                       th:field="*{id}"/>
+                <input id="field_isNew"
+                       type="hidden"
+                       name="isNew"
+                       th:value="${isNew}"/>
+                <div class="form-group">
+                    <label class="form-control-label"
+                           for="field_feedback">Feedback</label>
+                    <textarea class="form-control"
+                              id="field_feedback"
+                              rows="5"
+                              th:value="*{feedback}"
+                              th:field="*{feedback}"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label"
+                           for="field_value">Value</label>
+                    <select class="form-control select_op" id="field_value" th:field="*{value}">
+                        <option id="0" value=""></option>
+                        <option th:each="value : ${values}"
+                                th:id="${value.getValue()}"
+                                th:value="${value.getValue()}"
+                                th:text="${value.getValue()}">
+                        </option>
+                    </select>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <a href="course_student.html"
+                       th:href="@{|/course/${idC}/students|}"
+                       class="btn btn-light mr-1">Cancel</a>
+                    <a href="course_student.html"
+                       th:href="@{|/course/${idC}/students/${idS}/feedback|}"
+                       th:onclick="@{document.forms['courseForm'].submit(); return false;}"
+                       class="btn btn-primary">Save</a>
+                </div>
+            </form>
         </div>
 
         <script src="../../resources/static/js/jquery-3.4.1.slim.min.js"
@@ -54,5 +92,18 @@
                 th:src="@{/resources/static/js/popper.min.js}"></script>
         <script src="../../resources/static/js/bootstrap.min.js"
                 th:src="@{/resources/static/js/bootstrap.min.js}"></script>
+        <script>
+            $('.select_op').on(
+                'change',
+                function () {
+                    $('#field_value #0').remove();
+                }
+            );
+            $(document).ready(function() {
+                if ($('#field_value').val() !== "") {
+                    $('#field_value #0').remove();
+                }
+            });
+        </script>
     </body>
 </html>

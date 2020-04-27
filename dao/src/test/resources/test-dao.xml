@@ -4,11 +4,19 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="studentDao" class="com.gmail.programmerfromearth.dao.StudentJdbcDaoImpl">
+    <bean id="studentDao" class="com.gmail.programmerfromearth.dao.student.StudentJdbcDaoImpl">
         <constructor-arg ref="jdbcTemplate"/>
     </bean>
 
-    <bean id="courseDao" class="com.gmail.programmerfromearth.dao.CourseJdbcDaoImpl">
+    <bean id="courseDao" class="com.gmail.programmerfromearth.dao.course.CourseJdbcDaoImpl">
+        <constructor-arg ref="jdbcTemplate"/>
+    </bean>
+
+    <bean id="feedbackDao" class="com.gmail.programmerfromearth.dao.feedback.FeedbackJdbcDaoImpl">
+        <constructor-arg ref="jdbcTemplate"/>
+    </bean>
+
+    <bean id="studentCourseFeedbackJdbcDao" class="com.gmail.programmerfromearth.dao.studentCourseFeedback.StudentCourseFeedbackJdbcDaoImpl">
         <constructor-arg ref="jdbcTemplate"/>
     </bean>
 
